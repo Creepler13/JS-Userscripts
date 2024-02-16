@@ -3,3 +3,4 @@ package.json
 package-lock.json
 builds/private
 src/private
+src/utils/private

@@ -23,14 +23,25 @@ function getWebpackConfig(scriptName, private, headers) {
       userscriptConfig.headers.version + ".[buildNo]";
   }
   let config = {
+    optimization: {
+      usedExports: true,
+      minimize: true,
+    },
     output: {
       filename: scriptName + ".user.js",
       path: fs.realpathSync("builds/" + folder),
+    },
+    module: {
+      rules: [],
     },
     entry: fs.realpathSync("src/" + folder + "/index.js"),
     plugins: [new UserscriptPlugin(userscriptConfig)],
   };
 
-  if (dev) config.watch = true;
+  if (dev) {
+    config.optimization.minimize = false;
+    config.devtool = false;
+  }
+
   return config;
 }
