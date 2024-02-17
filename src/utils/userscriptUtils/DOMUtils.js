@@ -14,6 +14,13 @@ export function createButton(buttonText, onClick, id) {
   return but;
 }
 
+export function removeNodeRecursivly(node) {
+  while (node.hasChildNodes()) {
+    removeNodeRecursivly(node.firstChild);
+  }
+  node.remove();
+}
+
 export function createTextInput(presetText, onChange, id) {
   let input = document.createElement("input");
   if (id) input.id = id;
