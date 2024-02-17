@@ -1,8 +1,8 @@
-export function setCookie(key, value, expires) {
+export function setCookie(key, value, expires, path) {
   document.cookie =
-    `${key}=${value}; expires=` + expires
-      ? expires
-      : "Sun, 18 Feb 2080 01:42:22 GMT";
+    `${key}=${btoa(value)}; expires=` +
+    (expires ? expires : "Sun, 18 Feb 2080 01:42:22 GMT; path=") +
+    (path ? path : "/");
 }
 
 export function hasCookie(key) {
@@ -12,7 +12,7 @@ export function hasCookie(key) {
 
 export function getCookie(key) {
   let cookie = document.cookie.match(new RegExp(`${key}=([^;]+)`));
-  if (cookie) return cookie[1];
+  if (cookie) return atob(cookie[1]);
   else return false;
 }
 
